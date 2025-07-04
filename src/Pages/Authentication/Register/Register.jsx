@@ -5,6 +5,7 @@ import UseAuth from '../../../Context/Hook/UseAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import useAxios from '../../../Context/Hook/useAxios';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const { createUser, updateUser, loading} = UseAuth()
@@ -60,11 +61,11 @@ const Register = () => {
                         })
                        
                     }).catch(error => {
-                        console.log(error);
+                        toast.error(error.message);
                     })
 
             }).catch(error => {
-                console.log(error);
+                toast.error(error.message);
             })
 
     }

@@ -41,7 +41,7 @@ L.Icon.Default.mergeOptions({
 export default function Coverage() {
 
   const branches = useLoaderData()
-  console.log(branches);
+  // console.log(branches);
 
   const [searchTerm, setSearchTerm] = useState("");
 

@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router';
 import TrustedLogo from './TrustedLogo';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
 
 const Header = () => {
 
@@ -13,7 +14,7 @@ const Header = () => {
             .then(() => {
                 Swal.fire('logged out successful')
             }).catch(err => {
-                console.log(err);
+               toast.error(err.message)
             })
     }
 

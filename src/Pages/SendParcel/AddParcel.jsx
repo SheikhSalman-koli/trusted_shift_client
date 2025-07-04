@@ -91,7 +91,7 @@ const AddParcelForm = () => {
                 if (res.data.insertedId) {
                     // TODO: redirect to ----
                     toast.success('your parcel has been approved successfully!')
-                    console.log(res.data);
+                    // console.log(res.data);
                 }
             })
             .catch((err) => {

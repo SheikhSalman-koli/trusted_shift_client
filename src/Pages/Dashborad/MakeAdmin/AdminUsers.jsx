@@ -3,7 +3,8 @@ import { useDebounce } from 'use-debounce';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { FaUserShield, FaUserMinus } from 'react-icons/fa';
-import UseAxiosSecure from '../../../Context/Hook/useAxiosSecure';
+import UseAxiosSecure from '../../../Context/Hook/UseAxiosSecure';
+
 
 const AdminUsers = () => {
   const axiosSecure = UseAxiosSecure();

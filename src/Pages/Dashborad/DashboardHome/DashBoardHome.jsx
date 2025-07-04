@@ -8,6 +8,7 @@ import AdminDashboard from './AdminDashboard';
 const DashBoardHome = () => {
     
     const {role, roleLoading} = useUserRole()
+    // console.log(role, roleLoading);
 
     if(roleLoading){
         return <Loader></Loader>

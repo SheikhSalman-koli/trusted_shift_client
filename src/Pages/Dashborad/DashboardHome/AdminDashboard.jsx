@@ -47,7 +47,7 @@ const AdminDashboard = () => {
         return <p className="p-4 text-red-500">Error: {error.message}</p>;
     }
 
-    console.log(data);
+    // console.log(data);
 
 
     return (
@@ -83,7 +83,7 @@ const AdminDashboard = () => {
                         cx="50%"
                         cy="50%"
                         outerRadius={100}
-                        label
+                        label={({name, percent})=> `${name} (${(percent * 100).toFixed(0)}%)`}
                     >
                         {data.map((entry, index) => (
                             <Cell
