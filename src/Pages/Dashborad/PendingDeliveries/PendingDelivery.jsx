@@ -5,12 +5,14 @@ import Loader from '../../../Components/Loadeer/Loader';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FaCheckCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import useCreateTracking from '../../../Context/Hook/useCreateTracking';
 
 const PendingDelivery = () => {
 
     const { user } = UseAuth()
     const axiosSecure = UseAxiosSecure()
     const queryClient = useQueryClient()
+    const {createTracking} = useCreateTracking()
 
     const {
         data: parcels = [],
@@ -28,9 +30,10 @@ const PendingDelivery = () => {
     //   console.log(parcels);
     
         const updateStatus = useMutation({
-            mutationFn: ({ id, newStatus }) =>
-                axiosSecure.patch(`/parcels/${id}/status`, {
+            mutationFn: ({ parcel, newStatus }) =>
+                axiosSecure.patch(`/parcels/${parcel._id}/status`, {
                     delivery_status: newStatus,
+                    riderEmail: user?.email
                 }),
             onSuccess: () => {
                 queryClient.invalidateQueries(['riderParcels', user?.email]);
@@ -41,7 +44,7 @@ const PendingDelivery = () => {
         return <Loader></Loader>
     }
 
-    const handleStatusChange = async (parcelId, newStatus, alertText) => {
+    const handleStatusChange = async (parcel, newStatus, alertText) => {
         const confirm = await Swal.fire({
             title: 'Confirm',
             text: alertText,
@@ -50,7 +53,19 @@ const PendingDelivery = () => {
             confirmButtonText: 'Yes',
         });
         if (confirm.isConfirmed) {
-            updateStatus.mutate({ id: parcelId, newStatus });
+            updateStatus.mutate({ parcel, newStatus });
+            // create tracking collection
+            let trackDetails = `picked up by ${user?.displayName}`
+            if(newStatus === 'delivered'){
+                `delivered by ${user?.displayName}`
+            }
+            await createTracking({
+               trackingId: parcel.trackingId,
+               status: newStatus,
+               details: trackDetails,
+               created_by: parcel?.created_by
+           })
+
             Swal.fire('Updated', 'Status updated successfully', 'success');
         }
 
@@ -102,7 +117,7 @@ const PendingDelivery = () => {
                                                     className="btn btn-xs btn-primary text-black"
                                                     onClick={() =>
                                                         handleStatusChange(
-                                                            p._id,
+                                                            p,
                                                             'in-transit',
                                                             'Mark this parcel as picked up?'
                                                         )
@@ -117,7 +132,7 @@ const PendingDelivery = () => {
                                                     className="btn btn-xs btn-success text-black"
                                                     onClick={() =>
                                                         handleStatusChange(
-                                                            p._id,
+                                                            p,
                                                             'delivered',
                                                             'Mark this parcel as delivered?'
                                                         )

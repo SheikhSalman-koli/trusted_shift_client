@@ -6,6 +6,7 @@ import UseAuth from '../../Context/Hook/UseAuth'
 import Swal from "sweetalert2";
 import axios from "axios";
 import UseAxiosSecure from "../../Context/Hook/UseAxiosSecure";
+import useCreateTracking from "../../Context/Hook/useCreateTracking";
 
 const generateTrackingId = () => {
     const prefix = "TRK";
@@ -19,6 +20,7 @@ const AddParcelForm = () => {
 
     const { user } = UseAuth();
     const axiosSecure = UseAxiosSecure()
+    const { createTracking } = useCreateTracking()
 
     const {
         register,
@@ -72,6 +74,7 @@ const AddParcelForm = () => {
     };
 
     const confirmAndSave = async (data, cost) => {
+
         const payload = {
             ...data,
             deliveryCost: cost,
@@ -79,7 +82,7 @@ const AddParcelForm = () => {
             payment_status: 'unpaid',
             delivery_status: 'not-collected',
             creation_date: new Date().toISOString(),
-            trackingId: generateTrackingId()
+            
         };
         // console.log(payload);
 
@@ -89,39 +92,12 @@ const AddParcelForm = () => {
                     // TODO: redirect to ----
                     toast.success('your parcel has been approved successfully!')
                     console.log(res.data);
-                } 
+                }
             })
             .catch((err) => {
                 toast.error(err.message)
             });
     };
-
-    {/* submit with toast */ }
-    // const onSubmit = (data) => {
-    //     const cost = calculateDeliveryCost(data);
-    //     toast((t) => (
-    //         <div className="bg-white shadow-lg rounded p-4 border">
-    //             <p className="text-lg font-semibold">Delivery Cost: ৳{cost}</p>
-    //             <div className="flex items-center justify-between mt-4">
-    //                 <button
-    //                     onClick={() => {
-    //                         toast.dismiss(t.id);
-    //                         confirmAndSave(data, cost);
-    //                     }}
-    //                     className="btn btn-sm btn-success"
-    //                 >
-    //                     Confirm
-    //                 </button>
-    //                 <button
-    //                     onClick={() => toast.dismiss(t.id)} // ✅ close without saving
-    //                     className="btn btn-sm btn-outline"
-    //                 >
-    //                     Cancel
-    //                 </button>
-    //             </div>
-    //         </div>
-    //     ), { duration: Infinity });
-    // };
 
     {/*submit with sweet alert2*/ }
     const onSubmit = (data) => {
@@ -167,7 +143,7 @@ const AddParcelForm = () => {
             customClass: {
                 popup: 'max-w-lg'
             }
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 // Swal.fire({
                 //     title: "saved!",
@@ -175,7 +151,15 @@ const AddParcelForm = () => {
                 //     icon: "success"
                 // });
                 confirmAndSave({ ...data, trackingId }, cost);
+                // create tracking collection
+                await createTracking({
+                    trackingId: trackingId,
+                    status: 'parcel_created',
+                    details: `Created by ${user?.displayName}`,
+                    created_by: user?.email
+                })
             }
+
         });
     };
 

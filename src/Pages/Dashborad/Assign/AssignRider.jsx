@@ -4,12 +4,14 @@ import UseAxiosSecure from "../../../Context/Hook/UseAxiosSecure";
 import Loader from "../../../Components/Loadeer/Loader";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import useCreateTracking from "../../../Context/Hook/useCreateTracking";
 
 const AssignRider = () => {
     const axiosSecure = UseAxiosSecure();
     const [selectedParcel, setSelectedParcel] = useState(null);
+    const {createTracking} = useCreateTracking()
 
-    const { data: parcels = [], isLoading , refetch} = useQuery({
+    const { data: parcels = [], isLoading, refetch } = useQuery({
         queryKey: ["assignableParcels"],
         queryFn: async () => {
             const res = await axiosSecure.get(
@@ -57,6 +59,7 @@ const AssignRider = () => {
         });
 
         if (result.isConfirmed) {
+           
             // Update parcel delivery_status
             // Update rider work_status
             await axiosSecure.patch(`/assign-rider`, {
@@ -65,11 +68,18 @@ const AssignRider = () => {
                 riderName: rider.name,
                 riderEmail: rider.email
             });
-            // console.log(selectedparcelId, selectedriderId);
+           
+            // create tracking collection
+             await createTracking({
+                trackingId: parcel.trackingId,
+                status: 'parcel_assigned',
+                details: `Assigned to ${rider.name}`,
+                created_by: parcel?.created_by
+            })
 
             Swal.fire('Assigned!', 'The rider has been assigned.', 'success');
             setSelectedParcel(null); 
-            refetch(); 
+            refetch();
         }
     };
 

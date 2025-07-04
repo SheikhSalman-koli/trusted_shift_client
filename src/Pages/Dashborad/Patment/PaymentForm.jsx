@@ -5,9 +5,10 @@ import { useQuery } from '@tanstack/react-query';
 import UseAxiosSecure from '../../../Context/Hook/UseAxiosSecure';
 import UseAuth from '../../../Context/Hook/UseAuth';
 import Swal from 'sweetalert2';
+import useCreateTracking from '../../../Context/Hook/useCreateTracking';
 
 const PaymentForm = () => {
-   
+
     const [error, setError] = useState('')
     const { parcelId } = useParams()
     // console.log(parcelId);
@@ -15,6 +16,7 @@ const PaymentForm = () => {
     const { user } = UseAuth()
     const navigate = useNavigate()
     const axiosSecure = UseAxiosSecure()
+    const { createTracking } = useCreateTracking()
 
     const { isPending, data: parcelInfo = {} } = useQuery({
         queryKey: ['parcels', parcelId],
@@ -32,12 +34,12 @@ const PaymentForm = () => {
     const price = parcelInfo.deliveryCost;
     const priceInCents = price * 100;
 
-     const stripe = useStripe()
+    const stripe = useStripe()
     const elements = useElements()
 
     const handlePayment = async (e) => {
         e.preventDefault()
-        
+
         // Stripe.js has not loaded yet. Make sure to disable
         // form submission until Stripe.js has loaded.
         if (!stripe || !elements) {
@@ -121,10 +123,18 @@ const PaymentForm = () => {
                                 const btn = Swal.getPopup().querySelector('#go-to-parcels');
                                 btn.addEventListener('click', () => {
                                     Swal.close();
-                                    navigate('/dashboard/myparcel'); // redirect to your page
+                                    // create tracking collection
+                                    createTracking({
+                                        trackingId: parcelInfo.trackingId,
+                                        status: 'parcel_payment',
+                                        details: `Created by ${parcelInfo?.senderName}`,
+                                        created_by: parcelInfo?.created_by
+                                    })
+                                    navigate('/dashboard/myparcel');
                                 });
                             },
                         });
+
                     }
                 }
             }

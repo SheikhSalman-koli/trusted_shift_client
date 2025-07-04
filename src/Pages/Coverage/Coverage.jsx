@@ -38,12 +38,10 @@ L.Icon.Default.mergeOptions({
 //   return null;
 // };
 
-
-
 export default function Coverage() {
 
   const branches = useLoaderData()
-  // console.log(branches);
+  console.log(branches);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -86,7 +84,7 @@ export default function Coverage() {
 
           {filteredBranches.map((branch, index) => (
             <Marker key={index} position={[branch.latitude, branch.longitude]}>
-              <Popup>{branch.name} Branch</Popup>
+              <Popup>{branch.city}</Popup>
             </Marker>
           ))}
         </MapContainer>

@@ -22,6 +22,9 @@ import PendingDelivery from "../Pages/Dashborad/PendingDeliveries/PendingDeliver
 import RiderRoute from "./RiderRoute";
 import CompletedParcels from "../Pages/Dashborad/completed/CompletedParcels";
 import EarningDetails from "../Pages/Dashborad/EarningDetails/EarningDetails";
+import AllowWithdraw from "../Pages/Dashborad/Assign/AllowWithdraw";
+import { Component } from "react";
+import DashBoardHome from "../Pages/Dashborad/DashboardHome/DashBoardHome";
 
 export const router = createBrowserRouter([
     {
@@ -82,6 +85,10 @@ export const router = createBrowserRouter([
         </PrivateRoute>,
         children: [
             {
+                index: true,
+                Component: DashBoardHome
+            },
+            {
                 path: 'myparcel',
                 Component: MyParcel
             },
@@ -130,6 +137,10 @@ export const router = createBrowserRouter([
                 element: <AdminRoute>
                     <AdminUsers></AdminUsers>
                 </AdminRoute>
+            },
+            {
+                path: 'allow-withdraw',
+                element: <AdminRoute><AllowWithdraw></AllowWithdraw></AdminRoute>
             }
         ]
     }

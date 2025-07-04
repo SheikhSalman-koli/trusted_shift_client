@@ -120,7 +120,11 @@ const DashBoardLayout = () => {
                                     <FaUserShield className="inline mr-2" /> Admin Users
                                 </NavLink>
                             </li>
-
+                            <li>
+                                <NavLink to="/dashboard/allow-withdraw">
+                                    <MdAttachMoney className="inline mr-2" /> Allow Withdraw
+                                </NavLink>
+                            </li>
                         </>
                     }
                 </ul>
