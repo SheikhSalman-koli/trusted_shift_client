@@ -63,7 +63,7 @@ const Login = () => {
                     <input
                         type={showPAssword ? "text" : "password"}
                         {...register('password', {required: true, minLength: 6})}
-                        className="input"
+                        className="input text-2xl"
                         placeholder="Password" 
                         />
                         {

@@ -11,6 +11,8 @@ const PaymentForm = () => {
 
     const [error, setError] = useState('')
     const { parcelId } = useParams()
+    const stripe = useStripe()
+    const elements = useElements()
     // console.log(parcelId);
     // const [isDisable, setIsDisable] = useState(false)
     const { user } = UseAuth()
@@ -34,8 +36,7 @@ const PaymentForm = () => {
     const price = parcelInfo.deliveryCost;
     const priceInCents = price * 100;
 
-    const stripe = useStripe()
-    const elements = useElements()
+
 
     const handlePayment = async (e) => {
         e.preventDefault()
@@ -101,7 +102,7 @@ const PaymentForm = () => {
                         parcelId,
                         amount: priceInCents,
                         transactionId: transactionId,
-                        paidBy: user.email
+                        paidBy: user?.email
                     }
 
                     const paymentRes = await axiosSecure.post('/payments', paymentData)

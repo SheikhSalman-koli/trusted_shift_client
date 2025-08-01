@@ -24,6 +24,7 @@ import CompletedParcels from "../Pages/Dashborad/completed/CompletedParcels";
 import EarningDetails from "../Pages/Dashborad/EarningDetails/EarningDetails";
 import AllowWithdraw from "../Pages/Dashborad/Assign/AllowWithdraw";
 import DashBoardHome from "../Pages/Dashborad/DashboardHome/DashBoardHome";
+import PaymentSuccess from "../Pages/SslPaymentSuccess/PaymentSuccess";
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
         ]
     },
     {
+        path: '/payment/success',
+        Component: PaymentSuccess
+    },
+    {
         path: '/',
         Component: AuthLayOut,
         children: [
@@ -102,7 +107,7 @@ export const router = createBrowserRouter([
             // rider routes only
             {
                 path: 'pending-delivery',
-                element: <RiderRoute><PendingDelivery></PendingDelivery></RiderRoute>  
+                element: <RiderRoute><PendingDelivery></PendingDelivery></RiderRoute>
             },
             {
                 path: 'completed-parcels',

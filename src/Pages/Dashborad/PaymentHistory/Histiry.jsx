@@ -39,13 +39,13 @@ const Histiry = () => {
                         </thead>
                         <tbody>
                             {paymentHistory?.map((payment, index) => (
-                                <tr key={payment.transactionId}>
+                                <tr key={payment?.transactionId}>
                                     <th>{index + 1}</th>
-                                    <td>{payment.parcelId.slice(0, 8)}...</td>
-                                    <td className="font-semibold text-green-600">৳{payment.amount}</td>
-                                    <td className="text-xs break-all">{payment.transactionId}</td>
-                                    <td>{payment.paidBy}</td>
-                                    <td>{new Date(payment.paymentDate).toLocaleString()}</td>
+                                    <td>{payment?.parcelId}</td>
+                                    <td className="font-semibold text-green-600">৳{payment?.amount}</td>
+                                    <td className="text-xs break-all">{payment?.transactionId}</td>
+                                    <td>{payment?.paidBy}</td>
+                                    <td>{new Date(payment?.paymentDate).toLocaleString()}</td>
                                     {/* <td>{new Date(payment.paymentDate).toISOString()}</td> */}
                                 </tr>
                             ))}
@@ -63,9 +63,6 @@ const Histiry = () => {
                     <p className="text-sm text-gray-400">Your payments will appear here once made</p>
                 </div>
             )}
-
-
-
         </div>
     );
 };
