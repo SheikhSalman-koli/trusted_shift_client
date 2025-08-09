@@ -38,7 +38,7 @@ Trusted-Shift aims to revolutionize parcel sending with transparency, efficiency
 ## Installation & Setup  
 
 ```bash
-git clone https://github.com/SheikhSalman-koli/your-trusted-shift-repo.git
+git clone https://github.com/SheikhSalman-koli/trusted_shift_client.git
 cd your-trusted-shift-repo
 npm install
 npm start
