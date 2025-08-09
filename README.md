@@ -14,7 +14,7 @@ Trusted-Shift is a parcel sending platform that connects users, riders, and admi
 - MongoDB   
 - Tailwind CSS / DaisyUI
 
-## Screenshot  
+## my-parcels 
 ![Trusted-Shift my-parcel](https://i.ibb.co.com/ch0Z0Zzs/Screenshot-2025-08-09-132157.png)
 
 
