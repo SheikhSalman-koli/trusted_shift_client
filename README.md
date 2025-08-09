@@ -1,12 +1,48 @@
-# React + Vite
+# Trusted-Shift
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live URL 
+*(Add live project link here if available)*
 
-Currently, two official plugins are available:
+## Overview  
+Trusted-Shift is a secure and efficient parcel sending platform with role-based authentication supporting Admin, Rider, and User roles.  
+Users can easily send parcels and track deliveries, while riders manage parcel pickups and deliveries.  
+The platform integrates Stripe and SSL Commerz payment gateways to provide smooth and secure payment processing, especially tailored for Bangladesh users.  
+Admins have control over managing users, riders, and parcel operations through a comprehensive dashboard.  
+Trusted-Shift features a responsive and intuitive interface ensuring a seamless experience across desktop and mobile devices.  
+With real-time updates and role-specific dashboards, the platform streamlines the parcel delivery process from start to finish.  
+Built with modern web technologies to deliver reliability, security, and user-friendliness.  
+Trusted-Shift aims to revolutionize parcel sending with transparency, efficiency, and trust.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Technologies Used  
+- React  
+- Node.js  
+- Express  
+- MongoDB  
+- Stripe (Payment Gateway)  
+- SSL Commerz (Payment Gateway for Bangladesh)  
+- JWT (Authentication)  
+- Tailwind CSS / DaisyUI
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Screenshot  
+![Trusted-Shift Screenshot](https://user-images.githubusercontent.com/your-image-link.png)
+
+## Features  
+- Role-based Authentication: Admin, Rider, User  
+- Parcel booking and tracking system  
+- Payment integration with Stripe and SSL Commerz  
+- Admin dashboard for managing users, riders, and parcels  
+- Real-time status updates  
+- Responsive UI for all devices
+
+## Installation & Setup  
+
+```bash
+git clone https://github.com/SheikhSalman-koli/your-trusted-shift-repo.git
+cd your-trusted-shift-repo
+npm install
+npm start
+
+
+
+
